@@ -44,7 +44,7 @@ int main() {
         auto ans = bron_kerbosch(&g);
         cout << "Printing answers..." << endl;
         for(auto a : ans) {
-          plot(a);
+          plot(a); // use dracula Graph js or sigma Js to draw graph
         }
         break;
       case printGraph:
