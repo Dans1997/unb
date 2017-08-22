@@ -18,15 +18,47 @@ void clear_screen() {
 int main() {
   clear_screen();
   
-  enum options {
+  enum options {ap
     findClick,
     printGraph,
     leave
   };
   
+  auto op = leave;
+  
   do {
     cout << "Welcome" << endl;
-  } while(op == );
-  
-  
+    cout << findClick << " Find Click in Friends Graph" << endl;
+    cout << printGraph << " Print Friends Graph" << endl;
+    cout << leave << " Leave" << endl;
+    cout << " > ";
+    cin >> op;
+    
+    clear_screen();
+    
+    switch(op) {
+      case findClick:
+        cout << "Preparing graph..." << endl;
+        auto g = read_file();
+        cout << "Iniciating Bron-Kerbosch Algorithm..." << endl;
+        auto ans = bron_kerbosch(&g);
+        cout << "Printing answers..." << endl;
+        for(auto a : ans) {
+          plot(a);
+        }
+        break;
+      case printGraph:
+        cout << "Preparing graph..." << endl;
+        auto g = read_file();
+        cout << "Printing graph..." << endl;
+        plot(g);
+        break;
+      case leave: 
+        break;
+      default:
+        cout << "Please enter a valid number!";
+    }
+  } while(not (op == leave));
+
+  return 0;
 }
