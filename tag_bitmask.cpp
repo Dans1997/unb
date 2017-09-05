@@ -28,30 +28,38 @@ void bron_kerbosh(long long r, long long p, long long e){
 	if(!p && !e){
 		vector<int> aux;
 		for(int i = 1; i < 50; i++)
-			if(r & (1 << i))
+			if(r & (1LL << i))
 				aux.push_back(i);
 
 		cliques.push_back(aux);
 		return;
 	}
 	
-	for(int i = 1; i <= 50; i++){
+	for(int i = 1; i < 50; i++){
 		// Se o vertice que se deseja acrescentar ao clique nao esta disponivel em "p"
 		// contuamos para a proxima iteracao
-		if(!(p & (1 << i))) continue;
-		
-		long long r2, p2, e2;
-		r2 = r | (1 << i); // Adiciona um novo vertice, "i" ao clique que se pretende expandir
-		p2 = p & adj[i]; // novo conjunto de possíveis adições ao clique
-		e2 = e & adj[i]; // novo conjunto de excluidos 
+		if(!(p & (1LL << i))) continue;
+
+		r |= 1LL << i;
+
+		// Bitmasks "p2" e "e2" representam a intercessao entre os bitmasks "p" e "e", respectivamente
+		// e o conjunto de vizinhos do vertice "i"
+		long long p2, e2;
+		p2 = p & adj[i];
+		e2 = e & adj[i];
 
 		// Realiza uma chamada recursiva para tentar expandir o conjunto de vertices de "r"
 		// com os vertices de "p2"
-		bron_kerbosh(r2, p2, e2);
+		// Adiciona um novo vertice, "i" ao clique que se pretende expandir
+		bron_kerbosh(r,p2,e2);
+
+		// Remove o vertice "i" do bitmask "r" para procurar cliques em outros conjuntos
+		// de vertices nas proximas iteracoes
+		r ^= 1LL << i;
 
 		// Remove o vertice "i" do bitmask "p" e o adiciona ao bitmask "e"
-		p ^= 1 << i;
-		e |= 1 << i;
+		p ^= 1LL << i;
+		e |= 1LL << i;
 	}
 }
 
@@ -85,8 +93,8 @@ int main(){
 		// O loop abaixo le o numero de todos os amigos de "num", e cria arestas entre "num" e seus amigos
 		while(vertice != 0){
 			// Adiciona uma aresta bidirecional entre "vertice" e "num"
-			adj[num] |= 1 << vertice;
-			adj[vertice] |= 1 << num;
+			adj[num] |= 1LL << vertice;
+			adj[vertice] |= 1LL << num;
 
 			// Le o numero do proximo amigo
 			scanf("%d",&vertice);
@@ -113,7 +121,7 @@ int main(){
 	r = p = e = 0;	
 
 	for(int i = 1; i < 50; i++)
-		p |= 1 << i;
+		p |= 1LL << i;
 
 	bron_kerbosh(r,p,e);
 	
@@ -138,5 +146,7 @@ int main(){
 	for(int i = 0; i < cliques[1].size(); i++){
 		printf("%d %s\n",cliques[1][i],nomes[cliques[1][i] - 1].c_str());
 	}
+
+	
     return 0;
 }
