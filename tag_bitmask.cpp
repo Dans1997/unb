@@ -35,27 +35,19 @@ void bron_kerbosh(long long r, long long p, long long e){
 		return;
 	}
 	
-	for(int i = 1; i < 50; i++){
+	for(int i = 1; i <= 50; i++){
 		// Se o vertice que se deseja acrescentar ao clique nao esta disponivel em "p"
 		// contuamos para a proxima iteracao
 		if(!(p & (1 << i))) continue;
-
-		// Adiciona um novo vertice, "i" ao clique que se pretende expandir
-		r |= 1 << i;
-
-		// Bitmasks "p2" e "e2" representam a intercessao entre os bitmasks "p" e "e", respectivamente
-		// e o conjunto de vizinhos do vertice "i"
-		long long p2, e2;
-		p2 = p & adj[i];
-		e2 = e & adj[i];
+		
+		long long r2, p2, e2;
+		r2 = r | (1 << i); // Adiciona um novo vertice, "i" ao clique que se pretende expandir
+		p2 = p & adj[i]; // novo conjunto de possíveis adições ao clique
+		e2 = e & adj[i]; // novo conjunto de excluidos 
 
 		// Realiza uma chamada recursiva para tentar expandir o conjunto de vertices de "r"
 		// com os vertices de "p2"
-		bron_kerbosh(r,p2,e2);
-
-		// Remove o vertice "i" do bitmask "r" para procurar cliques em outros conjuntos
-		// de vertices nas proximas iteracoes
-		r ^= 1 << i;
+		bron_kerbosh(r2, p2, e2);
 
 		// Remove o vertice "i" do bitmask "p" e o adiciona ao bitmask "e"
 		p ^= 1 << i;
