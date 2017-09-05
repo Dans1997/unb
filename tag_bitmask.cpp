@@ -4,7 +4,11 @@
 // 160071569 - Luis Felipe Braga Gebrim Silva
 // // //
 
-#include <bits/stdc++.h>
+#include <iostream>
+#include <string> 
+#include <vector> 
+#include <algorithm> 
+#include <stdio.h>
 
 using namespace std;
 
@@ -69,7 +73,7 @@ bool comp(vector<int> a, vector<int> b){
 
 
 bool comp_grau(pair<long long,int> a, pair<long long,int> b){
-	return __builtin_popcount(b.first) > __builtin_popcount(a.first);
+	return __builtin_popcountll(b.first) > __builtin_popcountll(a.first);
 }
 
 int main(){
@@ -110,7 +114,7 @@ int main(){
 
 	printf("Alunos ordenados por grau:\n\n");
 	for(int i = ordenado.size()-1; i >= 0; i--){
-		printf("Grau: %d\nNumero: %d\nNome: %s\n",__builtin_popcount(ordenado[i].first), ordenado[i].second, nomes[ordenado[i].second - 1].c_str());
+		printf("Grau: %d\nNumero: %d\nNome: %s\n",__builtin_popcountll(ordenado[i].first), ordenado[i].second, nomes[ordenado[i].second - 1].c_str());
 		printf("\n");
 	}
 
@@ -147,6 +151,6 @@ int main(){
 		printf("%d %s\n",cliques[1][i],nomes[cliques[1][i] - 1].c_str());
 	}
 
-	
+
     return 0;
 }
