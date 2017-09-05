@@ -1,3 +1,9 @@
+// // //
+// Trabalho 1 de TAG 
+// 150032552 - Claudio Segala Rodrigues Silva Filho
+// 160071569 - Luis Felipe Braga Gebrim Silva
+// // //
+
 #include <bits/stdc++.h>
 
 using namespace std;
