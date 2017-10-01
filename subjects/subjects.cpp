@@ -1,26 +1,27 @@
-#include <bits/stdc++.h>
+// // // // // // // // // // // // // // // // // // //
+// TAG - Trabalho 2                                   //
+// 150032552 - Claudio Segala Rodrigues Silva Filho   //
+// 160071569 - Luis Felipe Braga Gebrim Silva         //
+// // // // // // // // // // // // // // // // // // //
 
+// Arquivo 
+// Organizado na seguinte forma:
+// #NumeroMateria Nome_Materia #NumeroCreditos #NumeroDificuldade // #NumeroRequisitos #NumeroOutraMateria(x#NumeroRequisitos)
+
+#include <bits/stdc++.h>
 using namespace std;
 
 // Struct & Classes
-
 struct Subject {
 	string name;
-	int key;
-	int credit;
-	int difficulty;
+	int key, credit, difficulty, weight;
 };
 
 // Variaveis Globais
+map<int, Subject> subjects; // dicionario de materias Key: matricula 
+vector<vector<pair<int, int>>> dag;  // lista de adjacencia com (peso, proximoNo)
 
-map<int, string> subjects; // dicionario de materias Key: matricula 
-vector<vector<int, int>> dag;  // lista de adjacencia com (peso, proximoNo)
-
-void readFile () {
-	// O arquivo está organizado na seguinte forma:
-	// #NumeroMateria Nome_Materia
-	// #NumeroRequisitos #NumeroOutraMateria(x#NumeroRequisitos)
-
+void buildDAG () {
 	ifstream file;
 	file.open("subject.txt"); // open the file
 
@@ -31,10 +32,9 @@ void readFile () {
 
 	while(not file.eof()) {
 		Subject sub;
-
 		file >> sub.key >> sub.name >> sub.credit >> sub.difficulty;
 
-		sub.name = replace(begin(sub.name), end(sub.name), '_', ' ');
+		sub.weight = sub.credit * sub.difficulty;
 
 		subjects[sub.key] = sub; // insere a matéria no dicionário de materias
 
@@ -43,33 +43,28 @@ void readFile () {
 		for(int i = 0; i < numberOfDependencies; i++) {
 			int dependency;
 			file >> dependency; // le uma materia que depende
-
-			int sub_weight = sub.credit * sub.difficulty;
-			dag[dependency].push(sub_weight, sub.key);
+			dag[dependency].emplace_back(0, sub.key);
 		}
 	}
 
 	file.close();
-	cout << "Closing the file..." << endl;
 }
 
 void printCourse () {
-	for (auto subject in subjects) {
-		Subject sub = subject.second;
-		cout << sub.key << " - ";
-		cout << sub.name << " - ";
-		cout << sub.credit << " - "; 
-		cout << sub.difficulty << "\n";
+	cout << "Computer Science\n\n";
+	for (auto sub : subjects) {
+		cout << sub.second.key << " - " << sub.second.name << " - " << sub.second.credit << " - " << sub.second.difficulty << "\n";
 	}
+	cout << "\n\n\n";
 }
 
-void printDAG (int u = INITIAL_SUBJECT) {
-	
+void printDAG () {
+
 }
 
 int main () {
-	readFile();
-
+	buildDAG();
 	printCourse();
+
 	printDAG();
 }
