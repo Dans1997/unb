@@ -11,6 +11,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+#define l_l  << " " <<
+
 // Struct & Classes
 struct Subject {
 	string name;
@@ -19,11 +21,13 @@ struct Subject {
 
 // Variaveis Globais
 map<int, Subject> subjects; // dicionario de materias Key: matricula 
-vector<vector<pair<int, int>>> dag;  // lista de adjacencia com (peso, proximoNo)
+vector<vector<int>> dag;  // lista de adjacencia com (peso, proximoNo)
 
 void buildDAG () {
+	dag.resize(100);
+
 	ifstream file;
-	file.open("subject.txt"); // open the file
+	file.open("subjects.txt"); // open the file
 
 	if(not file.is_open()) {
 		cout << "Could not find file!" << endl;
@@ -33,17 +37,18 @@ void buildDAG () {
 	while(not file.eof()) {
 		Subject sub;
 		file >> sub.key >> sub.name >> sub.credit >> sub.difficulty;
-
+		cout << sub.key l_l sub.name l_l sub.credit l_l sub.difficulty << endl;
 		sub.weight = sub.credit * sub.difficulty;
 
 		subjects[sub.key] = sub; // insere a matéria no dicionário de materias
 
 		int numberOfDependencies;
 		file >> numberOfDependencies;
+		cout << numberOfDependencies << endl;
 		for(int i = 0; i < numberOfDependencies; i++) {
 			int dependency;
 			file >> dependency; // le uma materia que depende
-			dag[dependency].emplace_back(0, sub.key);
+			dag[dependency].push_back(sub.key);
 		}
 	}
 
