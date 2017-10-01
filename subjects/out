@@ -44,3 +44,21 @@ Ordem Topoligca das Disciplinas Obrigatorias de Ciencia da Computacao:
 19 REDES DE COMPUTADORES 
 32 SEGURANCA COMPUTACIONAL
 13 CALCULO NUMERICO 
+novoCaminho
+novoCaminho
+novoCaminho
+novoCaminho
+novoCaminho
+novoCaminho
+novoCaminho
+novoCaminho
+----------------------------------------------
+Caminho Critico no Grafo das Disciplinas Obrigatorias de Ciencia da Computacao:
+
+Peso: 55
+4 ALGORITMOS PROGR COMPUTADORES 
+7 ESTRUTURAS DE DADOS 
+11 TECNICAS DE PROGRAMACAO 1
+16 TECNICAS DE PROGRAMACAO 2 
+21 PROGRAMAÇÃO CONCORRENTE
+26 FUNDAMENTOS SIST OPERACIONAIS
