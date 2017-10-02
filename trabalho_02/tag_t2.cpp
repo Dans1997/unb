@@ -60,7 +60,7 @@ void achaCaminhoCritico () {
 // Simples dfs que coloca em um vetor o no que terminou de executar
 void dfs (int x, vector<int>& ordemTopologica){
 	if(visitado[x]) return;
-	visitado[x] = 1;
+	visitado[x] = true;
 	
 	for(int i = 0; i < adj[x].size(); i++) {
 		dfs(adj[x][i], ordemTopologica);
