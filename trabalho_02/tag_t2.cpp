@@ -13,6 +13,7 @@ vector<int> adj[100];                  // lista de adjacencia com a dag
 int peso[100];                         // peso das materias
 int grau_incidencia[100];              // grau de incidencia das materias
 vector<pair<int, string>> disciplinas; // lista de materias
+bool visitado[100];
 
 int caminho_critico(int x, pair<int, int>* maiorCaminho){
 	if(maiorCaminho[x].first != -1) return maiorCaminho[x].first;
@@ -58,6 +59,9 @@ void achaCaminhoCritico () {
 
 // Simples dfs que coloca em um vetor o no que terminou de executar
 void dfs (int x, vector<int>& ordemTopologica){
+	if(visitado[x]) return;
+	visitado[x] = 1;
+	
 	for(int i = 0; i < adj[x].size(); i++) {
 		dfs(adj[x][i], ordemTopologica);
 	}
