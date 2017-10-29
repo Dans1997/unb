@@ -34,7 +34,7 @@ vector<string> split (string str, char c) {
 		}
 	}
 
-	if (ans.size() == 0) {
+	if (tmp.size()) {
 		ans.push_back(tmp);
 	}
 
@@ -56,8 +56,8 @@ string remove (string str, char c) {
 void read_input () {
 	freopen("input.txt", "r", stdin);
 
-	auto aux = "";
-	auto line = "";
+	string aux = "";
+	string line = "";
 
 	for (auto i = 0; i < N_TEACHER; i++) {
 		Teacher t;
@@ -84,14 +84,14 @@ void read_input () {
 			auto school_number = stoi(s);
 			t.preferences.push_back(school_number);
 		}
-
+		
 		teachers[t.number] = t;
 	}
 
 	for (auto i = 0; i < N_SCHOOLS; i++) {
 		getline(cin, line);
 
-		School school;
+		School s;
 
 		line = remove(line, 'E');
 		line = remove(line, '(');
@@ -114,4 +114,11 @@ void iniciate () {
 int main () {
 	iniciate();
 	read_input();
+
+	// for (auto i  = 1; i <= N_TEACHER; i++) {
+	// 	cout << teachers[i].number << " " << teachers[i].skill << endl; 
+	// }
+	// for (auto i  = 1; i <= N_SCHOOLS; i++) {
+	// 	cout << schools[i].number << " " << schools[i].preference << endl;
+	// }
 }
