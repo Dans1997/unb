@@ -73,10 +73,10 @@ void match () {
 			matches_of[school].first = teacher;
 		} else if (not match.second) {                     // there is space to match with this school
 			matches_of[school].second = teacher;
-		} else if (school_preference != teachers[match.first].skill) { // if the current teacher assigned is the preference of the school (as the school have a vague preference, if the current do not match that preference, we can trade)
+		} else if (school_preference != teachers[match.first].skill and school_preference == teachers[teacher].skill) { // if the current teacher assigned is the preference of the school (as the school have a vague preference, if the current do not match that preference, we can trade)
 			free_teachers.push(match.first);                                // put the other teacher in the unmatched teacher
 			matches_of[school].first = teacher;                             // match the school with the new teacher
-		} else if (school_preference != teachers[match.second].skill) { // if the current teacher assigned is the preference of the school (as the school have a vague preference, if the current do not match that preference, we can trade)
+		} else if (school_preference != teachers[match.second].skill and school_preference == teachers[teacher].skill) { // if the current teacher assigned is the preference of the school (as the school have a vague preference, if the current do not match that preference, we can trade)
 			free_teachers.push(match.second);                               // put the other teacher in the unmatched teacher
 			matches_of[school].second = teacher;                            // match the school with the new teacher
 		} else {
