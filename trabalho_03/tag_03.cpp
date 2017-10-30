@@ -24,19 +24,19 @@ struct School {
 };
 
 // Global Variables
-pair<int, int> matches_of[N_SCHOOLS+1];
-Teacher teachers[N_TEACHER+1];
-School schools[N_SCHOOLS+1];
+vector<pair<int, int>> matches(N_SCHOOLS+1);
+vector<Teacher> teachers(N_TEACHER+1);
+vector<School> schools(N_SCHOOLS+1);
 
 void show () {
 	system("clear || cls");
 	cout << "Results:" << endl << endl;
 	for (auto i = 1; i <= N_SCHOOLS; i++) {
 		cout << "School: " << setw(3) <<  i << "  Teacher: ";
-		if (matches_of[i] == pair<int, int>{0, 0}) {
+		if (matches[i] == pair<int, int>{0, 0}) {
 			cout << "-" << endl;
 		} else {
-			cout << setw(3) << matches_of[i].first << ", " << matches_of[i].second << endl;
+			cout << setw(3) << matches[i].first << ", " << matches[i].second << endl;
 		}
 	}
 	cout << endl;
@@ -55,7 +55,7 @@ void match () {
 	}
 
 	for (auto i = 0; i <= N_SCHOOLS; i++) { // start all schools matches
-		matches_of[i] = pair<int, int>{0, 0};
+		matches[i] = pair<int, int>{0, 0};
 	}
 
 	while (not free_teachers.empty()) {
@@ -68,18 +68,18 @@ void match () {
 
 		auto school = teachers[teacher].preferences.front(); teachers[teacher].preferences.pop();	
 		auto school_preference = schools[school].preference;
-		auto match = matches_of[school];
+		auto match = matches[school];
 
 		if (not match.first) {                             // there is space to match with this school
-			matches_of[school].first = teacher;
+			matches[school].first = teacher;
 		} else if (not match.second) {                     // there is space to match with this school
-			matches_of[school].second = teacher;
+			matches[school].second = teacher;
 		} else if (school_preference != teachers[match.first].skill) { // if the current teacher assigned is the preference of the school (as the school have a vague preference, if the current do not match that preference, we can trade)
 			free_teachers.push(match.first);                                // put the other teacher in the unmatched teacher
-			matches_of[school].first = teacher;                             // match the school with the new teacher
+			matches[school].first = teacher;                             // match the school with the new teacher
 		} else if (school_preference != teachers[match.second].skill) { // if the current teacher assigned is the preference of the school (as the school have a vague preference, if the current do not match that preference, we can trade)
 			free_teachers.push(match.second);                               // put the other teacher in the unmatched teacher
-			matches_of[school].second = teacher;                            // match the school with the new teacher
+			matches[school].second = teacher;                            // match the school with the new teacher
 		} else {
 			free_teachers.push(teacher); // put the teacher back if I could not match it 
 		}
