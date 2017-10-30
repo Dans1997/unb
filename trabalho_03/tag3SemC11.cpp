@@ -171,7 +171,7 @@ void read () {
 		schools[s.number] = s;
 	}
 
-	for (int i = 1; i <= N_TEACHER; i++) {
+	for (int i = 1; i <= N_TEACHER; i++) { // for each teacher, add all the other schools (so that a perfect matching is possible)
 		for (int j = 1; j <= N_SCHOOLS; j++) {
 			teachers[i].preferences.push(j);
 		}
