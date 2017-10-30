@@ -9,18 +9,47 @@ using namespace std;
 struct Teacher {
 	int number;
 	int skill;
+	int matching_school;
 	vector<int> preferences;
 };
 
 struct School {
 	int number;
-	int preference;
+	int matching_teacher;
+	vector<int> preferences;
 };
 
-// Variaveis Globais
-int table[MAX][MAX];
-Teacher teachers[N_TEACHER];
-School schools[N_SCHOOLS];
+// Global Variables
+pair<int, int> matches[N_SCHOOLS+1];
+Teacher teachers[N_TEACHER+1];
+School schools[N_SCHOOLS+1];
+
+void show () {
+	system("clear || cls");
+	cout << "Results:" << endl << endl;
+	for (auto i = 1; i <= N_SCHOOLS; i++) {
+		cout << "  Teacher: " << matches[i].first << " School: ";
+		if (matches[i].second == 0) {
+			cout << "-" << endl;
+		} else {
+			cout << matches[i].second << endl;
+		}
+	}
+}
+
+void match () {
+	cout << "iniciating algorithm... ";
+	for (auto i = 1; i <= N_SCHOOLS; i++) {
+		matches[i] = {0, 0};
+	}
+	cout << "[OK]" << endl;
+
+	cout << "matching teachers with schools... ";
+	// while () {
+	// 	for ()
+	// }
+	cout << "[OK]" << endl;
+}
 
 vector<string> split (string str, char c) {
 	vector<string> ans;
@@ -53,12 +82,16 @@ string remove (string str, char c) {
 	return ans;
 }
 
-void read_input () {
+void read () {
+	cout << "opening file... ";
 	freopen("input.txt", "r", stdin);
+	cout << "[OK]" << endl;
 
 	string aux = "";
 	string line = "";
 
+
+	cout << "getting teachers preferences... ";
 	for (auto i = 0; i < N_TEACHER; i++) {
 		Teacher t;
 
@@ -84,10 +117,12 @@ void read_input () {
 			auto school_number = stoi(s);
 			t.preferences.push_back(school_number);
 		}
-		
+
 		teachers[t.number] = t;
 	}
+	cout << "[OK]" << endl;
 
+	cout << "getting schools preferences... ";
 	for (auto i = 0; i < N_SCHOOLS; i++) {
 		getline(cin, line);
 
@@ -100,25 +135,21 @@ void read_input () {
 		auto tmp = split(line, ':');
 
 		s.number = stoi(tmp[0]);
-		s.preference = stoi(tmp[1]);
+		auto p = stoi(tmp[1]);
+
+		for (auto j = 1; j <= N_TEACHER; j++) {
+			if (teachers[j].skill == p) {
+				s.preferences.push_back(teachers[j].number);
+			}
+		}
 
 		schools[s.number] = s;
 	}
-}
-
-void iniciate () {
-	system("clear || cls");
-	printf("Emparelhamento de Professores com Escolas:\n");	
+	cout << "[OK]" << endl;
 }
 
 int main () {
-	iniciate();
-	read_input();
-
-	// for (auto i  = 1; i <= N_TEACHER; i++) {
-	// 	cout << teachers[i].number << " " << teachers[i].skill << endl; 
-	// }
-	// for (auto i  = 1; i <= N_SCHOOLS; i++) {
-	// 	cout << schools[i].number << " " << schools[i].preference << endl;
-	// }
+	read();
+	match();
+	show();
 }
