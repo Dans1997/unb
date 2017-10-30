@@ -175,7 +175,6 @@ void read () {
 		for (int j = 1; j <= N_SCHOOLS; j++) {
 			teachers[i].preferences.push(j);
 		}
-		
 	}
 }
 
