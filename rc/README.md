@@ -22,3 +22,7 @@ cd nsallinone-3.27/ns-3.27 & ./waf configure & ./waf --build-profile=debug  --en
 ```
 ./waf --run hello-simulator
 ```
+
+# Menções honrosas
+
++ [Examplos](https://github.com/Gabrielcarvfer/NS3-CMake-project-example) de uso de NS3
