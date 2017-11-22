@@ -2,7 +2,7 @@
 
 using namespace std;
 
-struct File {n 
+struct File {
   vector<Cluster> cluster;
   string name;
 }
@@ -10,7 +10,8 @@ struct File {n
 struct HD {
   friends with FAT;
 
-  void write (File f) {
+   pair<bool, int> write (File f) {
+    auto writeTime = medTime // time to get to first cilinder 
     auto curr = 0; // indicate the currente cluster of the file
     auto last = 0; // indicate last cluster
   
@@ -20,11 +21,24 @@ struct HD {
           auto cluster_number= getClusterNumber(i, j, k);
           if (FAT::isClusterUsed(clusterNumber)){
              FAT::insertCluster(clusterNumber, curr);
+             last = cilynders[i].tracks[j].clusters[k]&;
              cilynders[i].tracks[j].clusters[k] = f.cluster[curr++];
+            if (curr == f.cluster.size()) {
+              break;
+            }
           }
         }
       }
+      writeTime += gTime // add time to move to next cilynder
     }
+    
+    last.eof = true;
+    if (curr != 0 and curr != f.cluster.size()) { // se colocou algo no HD, porém está incompleto
+      remove(f.name);
+      return pair<bool, int>(false, writeTime);
+    }
+     
+    return pair<bool, int>(true, writeTime);
   }
   
   private:
