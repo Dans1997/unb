@@ -31,9 +31,13 @@ struct HD {
       }
       writeTime += gTime // add time to move to next cilynder
     }
+     
+    if (curr == 0) { // não colocou nada
+      return pair<bool, int>(false, writeTime);
+    }
     
     last.eof = true;
-    if (curr != 0 and curr != f.cluster.size()) { // se colocou algo no HD, porém está incompleto
+    if (curr != f.cluster.size()) { // se colocou algo no HD, porém está incompleto
       remove(f.name);
       return pair<bool, int>(false, writeTime);
     }
