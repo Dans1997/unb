@@ -9,6 +9,14 @@ struct File {
 
 struct HD {
   friends with FAT;
+  
+   void remove (string f) {
+     auto clusters = FAT::getClustersOfFile(f);
+     FAT::removeFile(f);
+     for (auto clusterNumber : clusters) {
+       freeCluster(clusterNumber);
+     }
+   }
 
    pair<bool, int> write (File f) {
     auto writeTime = medTime // time to get to first cilinder 
