@@ -22,6 +22,13 @@ cd nsallinone-3.27/ns-3.27 & ./waf configure & ./waf --build-profile=debug  --en
 ```
 ./waf --run hello-simulator
 ```
+3. Cria a pasta output
+```
+mkdir output
+```
+
+Para rodar um código, bota o .cc na pasta scratch
+
 
 # Menções honrosas
 
